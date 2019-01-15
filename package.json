@@ -2,14 +2,26 @@
   "name": "lutherpromise",
   "version": "1.0.0",
   "description": "A simple promise []\u001b[DPromise/A+\u001b[D\u001b[D\u001b[Ds\u001b[C\u001b[C\u001b[C\u001b[D\u001b[]",
-  "main": "index.js",
+  "main": "./src/lutherPromise.js",
   "scripts": {
-    "test": "echo \\ "
+    "test": "echo \"Error: no test specified \" && exit -1"
   },
   "repository": {
-    "type": "git"
+    "type": "git",
+    "url": "git+https://github.com/luther-nwpu/LutherPromise.git"
+  },
+  "bugs": {
+    "url": "https://github.com/luther-nwpu/LutherPromise/issues"
   },
   "author": "luther",
   "license": "MIT",
-  "homepage": "https://github.com/lazysheep666/Promiseee#readme"
+  "homepage": "https://github.com/luther-nwpu/LutherPromise",
+  "dependencies": {
+    "eslint": "^5.9.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^4.0.0"
+  }
 }
