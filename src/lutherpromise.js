@@ -154,11 +154,4 @@ function resolveLutherPromise(lutherPromise2, x, resolve, reject) {
     resolve(x)
 }
 
-module.exports.deffered = () => {
-    let dfd = {}
-    dfd.promise = new LutherPromise(function(resolve, reject) {
-        dfd.resolve = resolve
-        dfd.reject = reject
-    })
-    return dfd
-}
+module.exports.LutherPromise = LutherPromise
