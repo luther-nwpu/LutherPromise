@@ -9,7 +9,7 @@ const STATE = {
 const isFunction = obj => typeof obj === 'function'
 const isObject = obj => Object.prototype.toString.call(obj) === '[object Object]'
 const isThenable = obj => (isObject(obj) || isFunction(obj)) && 'then' in obj
-const isLutherPromise = obj instanceof LutherPromise
+const isLutherPromise = obj => obj instanceof LutherPromise
 const asyncFunc = func => { setTimeout(func, 0) }
 
 class LutherPromise {
