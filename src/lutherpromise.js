@@ -72,90 +72,93 @@ const asyncFunc = func => { setTimeout(func, 0) }
      * @param onRejected the rejected callback for the LutherPromise
      * @return a new LutherPromise should be returned
      */
-    LutherPromise.prototype.then = function(onResolved, onRejected) {
-        onResovled = isFunction(onResolved) ? onResovled : (val) => val
-        onRejected = isFunction(onRejected) ? onRejected : (reason) => { throw reason}
-        const lutherPromise2 = new LutherPromise((resolve, reject) => {
-            if (this.state === STATE.RESOLVED) {
-                asyncFunc(() => {
-                    try {
-                        const x = onResolved(this.value)
-                        resolveLutherPromise(lutherPromise2, x, resolve, reject)
-                    } catch(error) {
-                        reject(error)
-                    }
-                })
-                return
-            }
-            if (this.state === STATE.REJECTED) {
-                asyncFunc(() => {
-                    try {
-                        const x = onRejected(this.value)
-                        resolveLutherPromise(lutherPromise2, x, resolve, reject)
-                    } catch (error) {
-                        reject(error)
-                    }
-                })
-            }
-            if (this.state === STATE.PENDING) {
-                this.onRejectedCallback.push((reason) => {
-                    asyncFunc(() => {
-                        try {
-                            const x = onRejected(reason)
-                            resolveLutherPromise(lutherPromise2, x, resolve, reject)
-                        } catch (error) {
-                            reject(error)
-                        }
-                    })
-                })
-            }
-        })
-        return lutherPromise2
-    }
+    // LutherPromise.prototype.then = function(onResolved, onRejected) {
+    //     onResovled = isFunction(onResolved) ? onResovled : (val) => val
+    //     onRejected = isFunction(onRejected) ? onRejected : (reason) => { throw reason}
+    //     const lutherPromise2 = new LutherPromise((resolve, reject) => {
+    //         if (this.state === STATE.RESOLVED) {
+    //             asyncFunc(() => {
+    //                 try {
+    //                     const x = onResolved(this.value)
+    //                     resolveLutherPromise(lutherPromise2, x, resolve, reject)
+    //                 } catch(error) {
+    //                     reject(error)
+    //                 }
+    //             })
+    //             return
+    //         }
+    //         if (this.state === STATE.REJECTED) {
+    //             asyncFunc(() => {
+    //                 try {
+    //                     const x = onRejected(this.value)
+    //                     resolveLutherPromise(lutherPromise2, x, resolve, reject)
+    //                 } catch (error) {
+    //                     reject(error)
+    //                 }
+    //             })
+    //         }
+    //         if (this.state === STATE.PENDING) {
+    //             this.onRejectedCallback.push((reason) => {
+    //                 asyncFunc(() => {
+    //                     try {
+    //                         const x = onRejected(reason)
+    //                         resolveLutherPromise(lutherPromise2, x, resolve, reject)
+    //                     } catch (error) {
+    //                         reject(error)
+    //                     }
+    //                 })
+    //             })
+    //         }
+    //     })
+    //     return lutherPromise2
+    // }
     
-    LutherPromise.prototype.catch = function(onRejected) {
-        return this.then(null, onRejected)
-    }
+    // LutherPromise.prototype.catch = function(onRejected) {
+    //     return this.then(null, onRejected)
+    // }
     
-    /**
-     * using the value of the x to decide the state and value of the lutherPromise2
-     * @param lutherPromise2
-     * @param x the return value of the onResolved or onRejected
-     * @param resolve comes from the resolve function of the lutherPromise2
-     * @param reject comes from the reject function of the lutherPromise2
-     */
-    function resolveLutherPromise(lutherPromise2, x, resolve, reject) {
-        if (lutherPromise2 === x) return reject(new TypeError())
+    // /**
+    //  * using the value of the x to decide the state and value of the lutherPromise2
+    //  * @param lutherPromise2
+    //  * @param x the return value of the onResolved or onRejected
+    //  * @param resolve comes from the resolve function of the lutherPromise2
+    //  * @param reject comes from the reject function of the lutherPromise2
+    //  */
+    // function resolveLutherPromise(lutherPromise2, x, resolve, reject) {
+    //     if (lutherPromise2 === x) return reject(new TypeError())
     
-        if (isLutherPromise(x)) {
-            x.then(resolve, reject)
-            return
-        }
+    //     if (isLutherPromise(x)) {
+    //         x.then(resolve, reject)
+    //         return
+    //     }
     
-        if (isThenable(x)) {
-            let called = false
-            const then = x.then
-            if (isFunction(then)) {
-                try {
-                    then.call(x,
-                        (y) => {
-                            if (called) return
-                            called = true
-                            resolveLutherPromise(lutherPromise2, y, resolve, reject)
-                        },
-                        (r) => {
-                            if (called) return
-                            called = true
-                            reject(r)
-                        })
-                } catch(error) {
-                    if (called) return
-                    called = true
-                    return reject(error) 
-                }
-            }
-        }
-        resolve(x)
+    //     if (isThenable(x)) {
+    //         let called = false
+    //         const then = x.then
+    //         if (isFunction(then)) {
+    //             try {
+    //                 then.call(x,
+    //                     (y) => {
+    //                         if (called) return
+    //                         called = true
+    //                         resolveLutherPromise(lutherPromise2, y, resolve, reject)
+    //                     },
+    //                     (r) => {
+    //                         if (called) return
+    //                         called = true
+    //                         reject(r)
+    //                     })
+    //             } catch(error) {
+    //                 if (called) return
+    //                 called = true
+    //                 return reject(error) 
+    //             }
+    //         }
+    //     }
+    //     resolve(x)
+    // }
+    function LutherPromise() {
+        console.log(6666)
     }
     return LutherPromise    
 })
