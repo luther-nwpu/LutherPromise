@@ -73,7 +73,7 @@ const asyncFunc = func => { setTimeout(func, 0) }
      * @return a new LutherPromise should be returned
      */
     LutherPromise.prototype.then = function(onResolved, onRejected) {
-        onResovled = isFunction(onResolved) ? onResovled : (val) => val
+        onResolved = isFunction(onResolved) ? onResolved : (val) => val
         onRejected = isFunction(onRejected) ? onRejected : (reason) => { throw reason}
         const lutherPromise2 = new LutherPromise((resolve, reject) => {
             if (this.state === STATE.RESOLVED) {
@@ -96,8 +96,19 @@ const asyncFunc = func => { setTimeout(func, 0) }
                         reject(error)
                     }
                 })
+                return
             }
             if (this.state === STATE.PENDING) {
+                this.onResolvedCallback.push((value) => {
+                    asyncFunc(() => {
+                        try {
+                            const x = onResolved(value)
+                            resolveLutherPromise(lutherPromise2, x, resolve, reject)
+                        } catch (error) {
+                            reject(error)
+                        }
+                    })
+                })
                 this.onRejectedCallback.push((reason) => {
                     asyncFunc(() => {
                         try {
