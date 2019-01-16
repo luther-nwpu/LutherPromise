@@ -32,7 +32,7 @@ const asyncFunc = func => { setTimeout(func, 0) }
                 if (val instanceof LutherPromise) {
                     return val.then(resolve, reject)
                 }
-                if (self.state === STATE.RESOLVED) {
+                if (self.state === STATE.PENDING) {
                     asyncFunc(() => {
                         self.state = STATE.RESOLVED
                         self.value = val
@@ -51,7 +51,7 @@ const asyncFunc = func => { setTimeout(func, 0) }
                     asyncFunc(() => {
                         self.state = STATE.REJECTED
                         self.data = reason
-                        for (let cb in self.onRejectedCallback) {
+                        for (let cb of self.onRejectedCallback) {
                             cb(reason)
                         }
                     })
