@@ -74,11 +74,12 @@ const asyncFunc = func => { setTimeout(func, 0) }
      */
     LutherPromise.prototype.then = function(onResolved, onRejected) {
         onResolved = isFunction(onResolved) ? onResolved : (val) => val
-        onRejected = isFunction(onRejected) ? onRejected : (reason) => { throw reason}
+        onRejected = isFunction(onRejected) ? onRejected : (reason) => { throw reason }
         const lutherPromise2 = new LutherPromise((resolve, reject) => {
             if (this.state === STATE.RESOLVED) {
                 asyncFunc(() => {
                     try {
+                        console.log('666666666666', this.value)
                         const x = onResolved(this.value)
                         resolveLutherPromise(lutherPromise2, x, resolve, reject)
                     } catch(error) {
@@ -121,6 +122,7 @@ const asyncFunc = func => { setTimeout(func, 0) }
                 })
             }
         })
+        console.log(lutherPromise2)
         return lutherPromise2
     }
     
