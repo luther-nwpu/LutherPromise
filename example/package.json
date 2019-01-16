@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "lutherPromise": "git+https://github.com/luther-nwpu/LutherPromise.git"
+    "lutherPromise": "git+https://github.com/luther-nwpu/LutherPromise.git",
+    "lutherpromise": "git+https://github.com/luther-nwpu/LutherPromise.git"
   }
 }
