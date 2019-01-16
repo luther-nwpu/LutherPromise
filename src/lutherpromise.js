@@ -32,7 +32,7 @@ const asyncFunc = func => { setTimeout(func, 0) }
                 if (val instanceof LutherPromise) {
                     return val.then(resolve, reject)
                 }
-                if (self.state === state.RESOLVED) {
+                if (self.state === STATE.RESOLVED) {
                     asyncFunc(() => {
                         self.state = STATE.RESOLVED
                         self.value = val
