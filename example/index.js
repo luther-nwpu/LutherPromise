@@ -1,4 +1,4 @@
-var LutherPromise = require('lutherPromise')
+var LutherPromise = require('lutherpromise')
 console.log(LutherPromise)
 new LutherPromise((resolve, reject) => {
     setTimeout(() => {
